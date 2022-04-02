@@ -14,10 +14,6 @@ class DistanceStudent:
         self.name = name
         self.currentModule = currentModule
 
-    # def __init__(self, firstName, surName, title, otherNames, currentModule):
-    #     super(DistanceStudent, self).__init__(firstName, surName, title, otherNames)
-    #     self.currentModule = currentModule
-      
     def studentInfo(self):
       return f"{self.name.formalName()} currently studying the {self.currentModule} module"
 

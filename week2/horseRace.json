@@ -1,0 +1,21 @@
+
+{
+    "races" : [
+        {
+            "number" : 1,
+            "type" : "flat",
+            "weather" : "warm"
+        }
+          ],
+    "horses" : [
+        {
+            "name" : "Birthday List",
+            "age" : "2",
+            "results" :{
+                    "race 1" : "2",
+                    "race 2" : "N/P",
+                    "race 3" : "3"
+                    }            
+        }
+           ]
+}    
