@@ -1,4 +1,6 @@
 import csv
+from matplotlib import collections
+from numpy import float64, int64
 import pandas as pd
 import sys
 
@@ -58,6 +60,12 @@ def parse(file_freq, file_airport):
                     af_list.append(AirportFreq(airport, fq))
     return pd.DataFrame.from_records([a.to_dict() for a in af_list])
 
+def load(file: str):
+    types = {"airport_id": "int64", "freq": "float64", "type": "object"}
+    return pd.read_json(file, orient="records", dtype=types)
+    
+
+    
 def save(df: pd.DataFrame, file: str):
     print(f"Saving data to {file}")
     df.to_json(file, orient="records")

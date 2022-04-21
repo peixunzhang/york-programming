@@ -1,7 +1,7 @@
 {
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-21.05-darwin";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -16,8 +16,7 @@
         with pkgs;
         mkShell {
           packages = [
-            (python37.withPackages (ps: with ps; [ jupyterlab tkinter pandas requests matplotlib ]))
-
+            (python37.withPackages (ps: with ps; [ tkinter pandas requests matplotlib scipy ]))
           ];
         };
     };
