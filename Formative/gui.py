@@ -1,21 +1,24 @@
+from curses import window
 from fileinput import filename
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog as fd
 from tkinter import ttk
-from cgitb import reset
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 from matplotlib.pyplot import table
 import pandas as pd
 import os
 import formative
 import numpy as np
 from statistics import mode
+import matplotlib.pyplot as plt
 
 class Application:
     def __init__(self):
         self.window = Tk()
-        self.window.title("Main Frame")
+        self.window.title("Summative")
         self.window.geometry("1000x500")
 
         button_upload_csv = Button(self.window, text="Upload csv", command=self.load_csv)
@@ -69,6 +72,7 @@ class Application:
         messagebox.showinfo("Message", "Json file is loaded")
         export_json_button.pack()
         show_table(self.window, self.df)
+        show_chart(self.window, self.df)
             
     def export_json(self):
         filetypes = (
@@ -109,6 +113,21 @@ def show_table(window, df):
     values=('more_than_100mhz', more_than_100mhz['freq'].mean(), more_than_100mhz['freq'].mode().values[0], more_than_100mhz["freq"].median()))
     
     table.pack()
+
+def show_chart(window, df):
+    f = Figure(figsize=(3, 2), dpi=100)
+    canvas = FigureCanvasTkAgg(f, master=window)
+    #canvas.get_tk_widget()
+    small_airport = df[df['type'] == 'small_airport']
+    sp = f.add_subplot()
+    sp.hist(small_airport['freq'], bins=50, log=True)
+    sp.set_title('Small airport Frequency')
+    sp.set_xlabel('Frequency', )
+    sp.set_ylabel('Amount of airport')
+    
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
 def main():
     Application()
 
