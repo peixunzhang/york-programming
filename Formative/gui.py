@@ -1,3 +1,4 @@
+from cProfile import label
 from curses import window
 from fileinput import filename
 from tkinter import *
@@ -19,7 +20,7 @@ class Application:
     def __init__(self):
         self.window = Tk()
         self.window.title("Summative")
-        self.window.geometry("1000x500")
+        self.window.geometry("1000x1500")
 
         button_upload_csv = Button(self.window, text="Upload csv", command=self.load_csv)
         button_upload_csv.pack()
@@ -72,7 +73,8 @@ class Application:
         messagebox.showinfo("Message", "Json file is loaded")
         export_json_button.pack()
         show_table(self.window, self.df)
-        show_chart(self.window, self.df)
+        show_small_airport_chart(self.window, self.df)
+        show_all_chart(self.window, self.df)
             
     def export_json(self):
         filetypes = (
@@ -114,10 +116,9 @@ def show_table(window, df):
     
     table.pack()
 
-def show_chart(window, df):
+def show_small_airport_chart(window, df):
     f = Figure(figsize=(3, 2), dpi=100)
     canvas = FigureCanvasTkAgg(f, master=window)
-    #canvas.get_tk_widget()
     small_airport = df[df['type'] == 'small_airport']
     sp = f.add_subplot()
     sp.hist(small_airport['freq'], bins=50, log=True)
@@ -127,6 +128,25 @@ def show_chart(window, df):
     
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+def show_all_chart(window, df):
+    f2 = Figure(figsize=(3, 2), dpi=100)
+    canvas2 = FigureCanvasTkAgg(f2, master=window)
+    small_airport = df[df['type'] == 'small_airport']
+    medium_airport = df[df['type'] == 'medium_airport']
+    large_airport = df[df['type'] == 'large_airport']
+    colors = ['red', 'tan', 'lime']
+    labels = ['small', 'medium', 'large']
+    all_airport = [small_airport['freq'], medium_airport['freq'], large_airport['freq']]
+    sp2 = f2.add_subplot()
+    sp2.hist(all_airport, bins=50, log= True, histtype='bar', color=colors, label=labels)
+    sp2.legend(prop={'size': 10})
+    sp2.set_ylabel('Amount of airport')
+    sp2.set_xlabel('Frequencies', )
+    sp2.set_title('All airport frequencies correlation')
+
+    canvas2.draw()
+    canvas2.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
 def main():
     Application()
