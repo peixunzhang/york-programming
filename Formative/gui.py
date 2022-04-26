@@ -127,7 +127,7 @@ def show_small_airport_chart(window, df):
     sp.set_ylabel('Amount of airport')
     
     canvas.draw()
-    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+    canvas.get_tk_widget().pack(fill=tk.BOTH)
 
 def show_all_chart(window, df):
     f2 = Figure(figsize=(3, 2), dpi=100)
@@ -146,7 +146,7 @@ def show_all_chart(window, df):
     sp2.set_title('All airport frequencies correlation')
 
     canvas2.draw()
-    canvas2.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+    canvas2.get_tk_widget().pack(fill=tk.BOTH)
 
 def main():
     Application()
