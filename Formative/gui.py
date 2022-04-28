@@ -20,7 +20,7 @@ class Application:
     def __init__(self):
         self.window = Tk()
         self.window.title("Summative")
-        self.window.geometry("1000x1500")
+        self.window.geometry("1920x1080")
 
         button_upload_csv = Button(self.window, text="Upload csv", command=self.load_csv)
         button_upload_csv.pack()
@@ -117,7 +117,7 @@ def show_table(window, df):
     table.pack()
 
 def show_small_airport_chart(window, df):
-    f = Figure(figsize=(15, 20), dpi=100)
+    f = Figure(figsize=(12, 4), dpi=80)
     canvas = FigureCanvasTkAgg(f, master=window)
     small_airport = df[df['type'] == 'small_airport']
     sp = f.add_subplot()
@@ -130,7 +130,7 @@ def show_small_airport_chart(window, df):
     canvas.get_tk_widget().pack()
 
 def show_all_chart(window, df):
-    f2 = Figure(figsize=(15, 20), dpi=100)
+    f2 = Figure(figsize=(12, 4), dpi=80)
     canvas2 = FigureCanvasTkAgg(f2, master=window)
     small_airport = df[df['type'] == 'small_airport']
     medium_airport = df[df['type'] == 'medium_airport']
