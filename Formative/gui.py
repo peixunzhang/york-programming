@@ -11,7 +11,7 @@ from matplotlib.figure import Figure
 from matplotlib.pyplot import table
 import pandas as pd
 import os
-import formative
+import parsing
 import numpy as np
 from statistics import mode
 import matplotlib.pyplot as plt
@@ -48,7 +48,7 @@ class Application:
                 filetypes=filetypes)
 
             if freq_file:
-                df = formative.parse(freq_file, airport_file)
+                df = parsing.parse(freq_file, airport_file)
                 self.on_data_loaded(df)
 
     def load_json(self):
@@ -63,7 +63,7 @@ class Application:
             filetypes=filetypes)
 
         if filename:
-            df = formative.load(filename)
+            df = parsing.load(filename)
             self.on_data_loaded(df)
 
 
@@ -86,7 +86,7 @@ class Application:
             title="Where to save the file?"
         )
         if filename:
-            formative.save(self.df, filename)
+            parsing.save(self.df, filename)
             messagebox.showinfo("Message", f"Json file is exported to {filename}")
 
 def show_table(window, df):
@@ -117,20 +117,20 @@ def show_table(window, df):
     table.pack()
 
 def show_small_airport_chart(window, df):
-    f = Figure(figsize=(3, 2), dpi=100)
+    f = Figure(figsize=(15, 20), dpi=100)
     canvas = FigureCanvasTkAgg(f, master=window)
     small_airport = df[df['type'] == 'small_airport']
     sp = f.add_subplot()
     sp.hist(small_airport['freq'], bins=50, log=True)
     sp.set_title('Small airport Frequency')
-    sp.set_xlabel('Frequency', )
+    sp.set_xlabel('Frequency')
     sp.set_ylabel('Amount of airport')
     
     canvas.draw()
-    canvas.get_tk_widget().pack(fill=tk.BOTH)
+    canvas.get_tk_widget().pack()
 
 def show_all_chart(window, df):
-    f2 = Figure(figsize=(3, 2), dpi=100)
+    f2 = Figure(figsize=(15, 20), dpi=100)
     canvas2 = FigureCanvasTkAgg(f2, master=window)
     small_airport = df[df['type'] == 'small_airport']
     medium_airport = df[df['type'] == 'medium_airport']
@@ -142,11 +142,11 @@ def show_all_chart(window, df):
     sp2.hist(all_airport, bins=50, log= True, histtype='bar', color=colors, label=labels)
     sp2.legend(prop={'size': 10})
     sp2.set_ylabel('Amount of airport')
-    sp2.set_xlabel('Frequencies', )
+    sp2.set_xlabel('Frequencies')
     sp2.set_title('All airport frequencies correlation')
 
     canvas2.draw()
-    canvas2.get_tk_widget().pack(fill=tk.BOTH)
+    canvas2.get_tk_widget().pack()
 
 def main():
     Application()
