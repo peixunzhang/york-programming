@@ -1,20 +1,12 @@
-from cProfile import label
-from curses import window
-from fileinput import filename
 from tkinter import *
-import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog as fd
 from tkinter import ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-from matplotlib.pyplot import table
-import pandas as pd
 import os
 import parsing
-import numpy as np
-from statistics import mode
-import matplotlib.pyplot as plt
+
 
 class Application:
     def __init__(self):
