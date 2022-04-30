@@ -1,6 +1,4 @@
 import csv
-from matplotlib import collections
-from numpy import float64, int64
 import pandas as pd
 import sys
 
@@ -15,16 +13,17 @@ class Frequency:
         airport_ref = row.get('airport_ref')
         freq = float(row.get('frequency_mhz'))
         return cls(id, airport_ref, freq)
-
 class Airport:
-    def __init__(self, id, type):
+    def __init__(self, id, type, iso_country):
         self.id = id
         self.type = type
+        self.iso_country = iso_country
     @classmethod
     def from_row(cls, row):
         id = row.get('id')
         type = row.get('type')
-        return cls(id, type)
+        iso_country = row.get('iso_country')
+        return cls(id, type, iso_country)
 
 class AirportFreq:
     def __init__(self, airport, freq):
@@ -34,6 +33,7 @@ class AirportFreq:
         return{'airport_id': self.airport.id, 'freq': self.freq.freq, 'type': self.airport.type}
 
 type_values = {'small_airport', 'medium_airport', 'large_airport'}
+country_values = {'GB'}
 
 
 def parse(file_freq, file_airport):
@@ -54,7 +54,7 @@ def parse(file_freq, file_airport):
         csvReader = csv.DictReader(f)
         for line in csvReader:
             airport = Airport.from_row(line)
-            if airport.type in type_values:
+            if airport.type in type_values and airport.iso_country in country_values:
                 freqs = f_map.get(airport.id, [])
                 for fq in freqs:
                     af_list.append(AirportFreq(airport, fq))

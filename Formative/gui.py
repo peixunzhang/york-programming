@@ -14,10 +14,10 @@ class Application:
         self.window.title("Summative")
         self.window.geometry("1920x1080")
 
-        button_upload_csv = Button(self.window, text="Upload csv", command=self.load_csv)
+        button_upload_csv = Button(self.window, text="Upload CSV", command=self.load_csv)
         button_upload_csv.pack()
 
-        button_import_json = Button(self.window, text="Upload json", command=self.load_json)
+        button_import_json = Button(self.window, text="Upload JSON", command=self.load_json)
         button_import_json.pack()
 
         self.window.mainloop()
@@ -50,7 +50,7 @@ class Application:
         )
 
         filename = fd.askopenfilename(
-            title='Select exported json file',
+            title='Select exported JSON file',
             initialdir='/',
             filetypes=filetypes)
 
@@ -61,8 +61,8 @@ class Application:
 
     def on_data_loaded(self, df):
         self.df = df
-        export_json_button = Button(self.window, text="Export Json file", command=self.export_json)
-        messagebox.showinfo("Message", "Json file is loaded")
+        export_json_button = Button(self.window, text="Export JSON file", command=self.export_json)
+        messagebox.showinfo("Message", "JSON file is loaded")
         export_json_button.pack()
         show_table(self.window, self.df)
         show_small_airport_chart(self.window, self.df)
@@ -79,7 +79,7 @@ class Application:
         )
         if filename:
             parsing.save(self.df, filename)
-            messagebox.showinfo("Message", f"Json file is exported to {filename}")
+            messagebox.showinfo("Message", f"JSON file is exported to {filename}")
 
 def show_table(window, df):
     table = ttk.Treeview(window, height=2)
