@@ -6,7 +6,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import os
 import parsing
-
+import numpy as np
+from statistics import mode
 
 class Application:
     def __init__(self):
@@ -102,9 +103,9 @@ def show_table(window, df):
     more_than_100mhz = df[df['freq'] > 100]
 
     table.insert(parent='',index='end',iid=0,text='',
-    values=('large_airport', large_airport['freq'].mean(), large_airport['freq'].mode().values[0], large_airport["freq"].median()))
+    values=('large_airport', np.mean(large_airport['freq']), mode(large_airport['freq']), np.median(large_airport["freq"])))
     table.insert(parent='',index='end',iid=1,text='',
-    values=('more_than_100mhz', more_than_100mhz['freq'].mean(), more_than_100mhz['freq'].mode().values[0], more_than_100mhz["freq"].median()))
+    values=('more_than_100mhz', np.mean(more_than_100mhz['freq']), mode(more_than_100mhz['freq']), np.median(more_than_100mhz["freq"])))
     
     table.pack()
 
@@ -116,7 +117,7 @@ def show_small_airport_chart(window, df):
     sp.hist(small_airport['freq'], bins=50, log=True)
     sp.set_title('Small airport Frequency')
     sp.set_xlabel('Frequency')
-    sp.set_ylabel('Amount of airport')
+    sp.set_ylabel('Number of airports')
     
     canvas.draw()
     canvas.get_tk_widget().pack()
@@ -131,9 +132,9 @@ def show_all_chart(window, df):
     labels = ['small', 'medium', 'large']
     all_airport = [small_airport['freq'], medium_airport['freq'], large_airport['freq']]
     sp2 = f2.add_subplot()
-    sp2.hist(all_airport, bins=50, log= True, histtype='bar', color=colors, label=labels)
+    sp2.hist(all_airport, bins=50, log=True, histtype='bar', color=colors, label=labels)
     sp2.legend(prop={'size': 10})
-    sp2.set_ylabel('Amount of airport')
+    sp2.set_ylabel('Number of airports')
     sp2.set_xlabel('Frequencies')
     sp2.set_title('All airport frequencies correlation')
 
