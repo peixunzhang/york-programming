@@ -1,6 +1,5 @@
 import csv
 import pandas as pd
-import sys
 
 class Frequency:
     def __init__(self, id, airport_ref, freq):
@@ -64,18 +63,6 @@ def load(file: str):
     types = {"airport_id": "int64", "freq": "float64", "type": "object"}
     return pd.read_json(file, orient="records", dtype=types)
     
-
-    
 def save(df: pd.DataFrame, file: str):
     print(f"Saving data to {file}")
     df.to_json(file, orient="records")
-
-def main():
-    airport_freq = sys.argv[1]
-    airport = sys.argv[2]
-    save_json = sys.argv[3]
-    save(parse(airport_freq, airport), save_json)
-
-
-if __name__ == "__main__":
-    main()

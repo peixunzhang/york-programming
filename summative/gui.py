@@ -59,7 +59,6 @@ class Application:
             df = parsing.load(filename)
             self.on_data_loaded(df)
 
-
     def on_data_loaded(self, df):
         self.df = df
         export_json_button = Button(self.window, text="Export JSON file", command=self.export_json)
@@ -143,7 +142,6 @@ def show_all_chart(window, df):
 
 def main():
     Application()
-
 
 if __name__ == "__main__":
     main()
